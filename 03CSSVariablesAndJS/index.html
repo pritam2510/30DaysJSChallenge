@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<!-- SINCE WE HAVE APPLIED THE CSS VARIABLE TO :ROOT ALL THE VARIABLES WILL BE ADDED TO STYLE PROPERTIES ON THE html TAG -->
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="pngwing.com.png" />
+    <title>CSS Variables and How to Change them JS</title>
+  </head>
+  <body>
+    <!-- WE CAN SET CSS VARIABLE AT ANY HTML ELEMENT AND IF THERE ARE CLASS THAT USED THOSE VARIABLES IN THAT ELEMENT OR BY ITS CHILDREN THEN THIS NEW VALUE WOULD BE USED INSTEAD OF THE ROOT ONE-->
+
+    <!-- THE CSS VARIABLE TAKES HIERARCHY AND THE LOWER ONE GET MORE IMPORTANCE -->
+
+    <h2 style="--base: #8f87f8">
+      Update CSS Variables with <span class="hl">JS</span>
+    </h2>
+    <div class="controls">
+      <label for="spacing">Spacing:</label>
+      <input
+        type="range"
+        name="spacing"
+        min="10"
+        max="200"
+        value="10"
+        data-sizing="px"
+        id="spacing"
+      />
+
+      <label for="blur">Blur:</label>
+      <input
+        type="range"
+        name="blur"
+        min="0"
+        max="25"
+        value="0"
+        data-sizing="px"
+        id="blur"
+      />
+
+      <label for="base">Base Colour:</label>
+      <input type="color" name="base" value="#ffc600" id="base" />
+
+      <img
+        width="100%"
+        src="wallpaperflare.com_wallpaper (9).jpg"
+        alt="forest wallpaper"
+      />
+    </div>
+
+    <style>
+      :root {
+        --base: #ffc600;
+        --spacing: 10px;
+        --blur: 0px;
+      }
+
+      img {
+        padding: var(--spacing);
+        background: var(--base);
+        filter: blur(var(--blur));
+      }
+
+      .hl {
+        color: var(--base);
+      }
+
+      body {
+        text-align: center;
+        background: #193549;
+        color: whitesmoke;
+        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+        font-weight: 500;
+        font-size: 50px;
+      }
+
+      .controls {
+        margin-bottom: 50px;
+      }
+
+      input {
+        width: 100px;
+      }
+    </style>
+    <script>
+      const inputs = document.querySelectorAll(".controls input");
+
+      function handleupdate() {
+        const suffix = this.dataset.sizing || "";
+        console.log(`--${this.name}`, `${this.value}${suffix}`);
+        document.documentElement.style.setProperty(
+          `--${this.name}`,
+          `${this.value}${suffix}`
+        );
+      }
+
+      inputs.forEach((input) => input.addEventListener("change", handleupdate));
+      inputs.forEach((input) =>
+        input.addEventListener("mousemove", handleupdate)
+      );
+    </script>
+  </body>
+</html>
