@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="https://clipart-library.com/images/kT85Rnzac.png" />
+    <title>CSS + JS Clock</title>
+  </head>
+  <style>
+    html {
+      background: #000;
+      background-size: cover;
+      font-family: "Courier New", Courier, monospace;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    body {
+      margin: 0;
+      font-size: 2rem;
+      display: flex;
+      flex: 1;
+      min-height: 100vh;
+      align-items: center;
+    }
+
+    .clock {
+      width: 30rem;
+      height: 30rem;
+      border: 20px solid;
+      border-radius: 50%;
+      margin: 50px auto;
+      position: relative;
+      padding: 2rem;
+      box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.377), inset 0 0 0 3px #efefef,
+        inset 0 0 10px white, 0 0 25px rgba(255, 255, 255, 0.774);
+    }
+
+    .clock-face {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-3px);
+    }
+
+    .hand {
+      width: 50%;
+      height: 15px;
+      /* background: whitesmoke; */
+      position: absolute;
+      top: 50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.05s;
+      border-radius: 15px;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.377), inset 0 0 0 3px #efefef,
+        inset 0 0 10px white, 0 0 10px rgba(255, 255, 255, 0.774);
+    }
+
+    .hour-hand {
+      width: 30%;
+      margin-left: 20%;
+    }
+
+    .min-hand {
+      width: 40%;
+      margin-left: 10%;
+    }
+
+    .second-hand {
+    }
+  </style>
+  <body>
+    <div class="clock">
+      <div class="clock-face">
+        <div class="hand hour-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand second-hand"></div>
+      </div>
+    </div>
+    <audio id="sec-sound" src="Tick-DeepFrozenApps-397275646.mp3"></audio>
+  </body>
+
+  <script>
+    const secondHand = document.querySelector(".second-hand");
+    const minuteHand = document.querySelector(".min-hand");
+    const hourHand = document.querySelector(".hour-hand");
+
+    function setDate() {
+      const now = new Date();
+      let audio = document.querySelector(`#sec-sound`);
+      audio.currentTime = 0;
+      audio.play();
+
+      const sec = now.getSeconds();
+      const secondDegree = (sec / 60) * 360 + 90;
+
+      const min = now.getMinutes();
+      const minuteDegree = (min / 60) * 360 + 90;
+
+      const hour = now.getHours();
+      const hourDegree = (hour / 12) * 360 + 90;
+
+      secondHand.style.transition =
+        secondDegree !== 90
+          ? "all  0.05s cubic-bezier(0.1, 2.7, 0.58, 1)"
+          : "none";
+
+      minuteHand.style.transition =
+        minuteDegree !== 90
+          ? "all  0.05s cubic-bezier(0.1, 2.7, 0.58, 1)"
+          : "none";
+
+      hourHand.style.transition =
+        hourDegree !== 90
+          ? "all  0.05s cubic-bezier(0.1, 2.7, 0.58, 1)"
+          : "none";
+
+      secondHand.style.transform = `rotate(${secondDegree}deg)`;
+
+      minuteHand.style.transform = `rotate(${minuteDegree}deg)`;
+
+      hourHand.style.transform = `rotate(${hourDegree}deg)`;
+    }
+
+    setInterval(setDate, 1000);
+  </script>
+</html>
