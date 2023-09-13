@@ -4,14 +4,75 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="jsicon.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
     <title>JS Array Cardio Day 1</title>
   </head>
+  <style>
+    body{
+      margin: 5%;
+    }
+  </style>
   <body>
     <div>
       <img style="width: 100%" src="jsarray.jpeg" alt="JS Array Functions" />
     </div>
+    <div>
+      <h2>List of the inventors</h2>
+      <table class="table table-striped table-bordered">
+        <thead class="table-light">
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Year of Birth</th>
+            <th>Death year</th>
+          </tr>
+        </thead>
+        <tbody id="inventorsBody">
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h2>
+        JS Array Functions
+      </h2>
+      <h3>
+        Array.prototype.filter()
+      </h3>
+      <div>
+        <p>The filter() method creates a new array filled with elements that pass a test provided by a function. The filter() method does not execute the function for empty elements.The filter() method does not change the original array.</p>
+        <p>
+          array.filter(function(currentValue, index, arr), thisValue)
+        </p>
+      </div>
+    </div>
+
   </body>
   <script>
+    let inventorsBody = document.querySelector("#inventorsBody");
+    document.addEventListener("DOMContentLoaded", () => {
+      loadInventors();
+    });
+
+    function loadInventors() {
+      let inventorstr = ``;
+      for (let i of inventors) {
+        inventorstr += `
+          <tr>
+            <td>${i.first}</td>
+            <td>${i.last}</td>
+            <td>${i.year}</td>
+            <td>${i.passed}</td>
+          </tr>
+        `;
+      }
+      inventorsBody.innerHTML = inventorstr;
+    }
+
     // Get your shorts on - this is an array workout!
     // ## Array Cardio Day 1
 
@@ -95,16 +156,17 @@
     console.table(inventors.sort((a, b) => a.year - b.year));
 
     //IN THE COURSE
-    console.table(inventors.sort((a, b) => {
-        if(a.year > b.year){
-            return 1;
+    console.table(
+      inventors.sort((a, b) => {
+        if (a.year > b.year) {
+          return 1;
+        } else {
+          return -1;
         }
-        else{
-            return -1;
-        }
-    }));
+      })
+    );
 
-    console.table(inventors.sort((a, b) => (a.year > b.year) ? 1 : -1));
+    console.table(inventors.sort((a, b) => (a.year > b.year ? 1 : -1)));
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
@@ -116,22 +178,21 @@
 
     //MY APPROACH
     console.table(
-      (inventors.sort((a, b) => (a.passed - a.year) - (b.passed - b.year))).map(x=>({name:`${x.first} ${x.last}`, age: (x.passed - x.year)}))
+      inventors
+        .sort((a, b) => a.passed - a.year - (b.passed - b.year))
+        .map((x) => ({ name: `${x.first} ${x.last}`, age: x.passed - x.year }))
     );
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
-    console.table(people.filter(x=>x.includes('de')));
+    console.table(people.filter((x) => x.includes("de")));
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
 
     //MY APPROACH
-    console.table(
-        people
-            .sort((a,b) => a.split(", ")[0] > b.split(", ")[0])
-    );
+    console.table(people.sort((a, b) => a.split(", ")[0] > b.split(", ")[0]));
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
@@ -153,10 +214,11 @@
     ];
 
     //MY APPROACH
-    console.table(data.reduce((obj,curr)=>{
+    console.table(
+      data.reduce((obj, curr) => {
         obj[curr] = (obj[curr] || 0) + 1;
-        return obj
-    },{}))
-
+        return obj;
+      }, {})
+    );
   </script>
 </html>
