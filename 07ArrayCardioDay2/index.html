@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="jsicon.png" />
+    <title>Array Cardio Day 2</title>
+</head>
+<style>
+    body{
+      margin: 5%;
+    }
+  </style>
+<body>
+    <div>
+        <img style="width: 100%" src="jsarray.jpeg" alt="JS Array Functions" />
+      </div>
+      <div>
+</body>
+<script>
+     const people = [
+      { name: 'Wes', year: 1988 },
+      { name: 'Kait', year: 1986 },
+      { name: 'Irv', year: 1970 },
+      { name: 'Lux', year: 2015 }
+    ];
+
+    const comments = [
+      { text: 'Love this!', id: 523423 },
+      { text: 'Super good', id: 823423 },
+      { text: 'You are the best', id: 2039842 },
+      { text: 'Ramen is my fav food ever', id: 123523 },
+      { text: 'Nice Nice Nice!', id: 542328 }
+    ];
+/*******************************************************/
+    // SOME AND EVERY CHECKS
+    // ARRAY.PROTOTYPE.SOME() // IS AT LEAST ONE PERSON 19 OR OLDER?
+    // ARRAY.PROTOTYPE.EVERY() // IS EVERYONE 19 OR OLDER?
+
+    /*My Approach*/
+    console.log("SOME AND EVERY CHECKS");
+    console.log(people.some(x=>{
+      let currYear = (new Date()).getFullYear();
+      return (currYear - x.year) >= 19 ;
+    }));
+
+    console.log(people.every(x=>(((new Date()).getFullYear()) - x.year) >= 19));
+/*******************************************************/
+
+
+/*******************************************************/
+    // ARRAY.PROTOTYPE.FIND()
+    // FIND IS LIKE FILTER, BUT INSTEAD RETURNS JUST THE ONE YOU ARE LOOKING FOR
+    // FIND THE COMMENT WITH THE ID OF 823423
+
+    /*My Approach*/
+    console.log("ARRAY.PROTOTYPE.FIND()");
+
+    console.log(comments.find(x=>x.id==823423));
+/*******************************************************/
+
+
+/*******************************************************/
+    // ARRAY.PROTOTYPE.FINDINDEX()
+    // FIND THE COMMENT WITH THIS ID
+    // DELETE THE COMMENT WITH THE ID OF 823423
+
+    /*My Approach*/
+    console.log("ARRAY.PROTOTYPE.FINDINDEX()");
+
+    console.log(comments.findIndex(x=>x.id==823423));
+
+    // delete comments[comments.findIndex(x=>x.id==823423)];
+    comments.splice((comments.findIndex(x=>x.id==823423)),1 );
+    console.table(comments);
+/*******************************************************/
+</script>
+</html>
