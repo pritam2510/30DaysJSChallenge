@@ -4,18 +4,86 @@
     <meta charset="UTF-8" />
     <title>HTML5 Canvas</title>
     <link rel="icon" href="pngwing.com(1).png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
-    <canvas id="draw" width="800" height="800"></canvas>
+    <div style="margin: 1%">
+      <div class="row">
+        <div class="col-2">
+          <label for="rainbowColor">Use Rainbow Color: </label>
+          <br />
+          <input id="rainbowColor" name="rainbowColor" type="checkbox" />
+        </div>
+        <div class="col-2">
+          <label for="lineColor">Select a Color: </label>
+          <br />
+          <input type="color" value="#BADA55" name="lineColor" id="lineColor" />
+        </div>
+        <div class="col-3">
+          <label for="lineWidth">Line Width: </label>
+          <br />
+          <input
+            type="range"
+            min="5"
+            max="80"
+            step="1"
+            value="10"
+            name="lineWidth"
+            id="lineWidth"
+          />
+        </div>
+        <div class="col-2">
+          <label for="lineJoin">Line Join: </label>
+          <br />
+          <select name="lineJoin" id="lineJoin">
+            <option selected value="round">Round</option>
+            <option value="bevel">Bevel</option>
+            <option value="miter">Miter</option>
+          </select>
+        </div>
+        <div class="col-2">
+          <label for="lineCap">Line Cap: </label>
+          <br />
+          <select name="lineCap" id="lineCap">
+            <option selected value="round">Round</option>
+            <option value="butt">Butt</option>
+            <option value="square">Square</option>
+          </select>
+        </div>
+        <div class="col-1">
+          <img id="resetCanvas" src="reset.png" width="50%" alt="Reset" />
+        </div>
+      </div>
+    </div>
+    <div>
+      <canvas
+        style="border: 1px black solid"
+        id="draw"
+        width="800"
+        height="800"
+      ></canvas>
+    </div>
     <script>
       const canvas = document.getElementById("draw");
-      canvas.width = window.innerWidth;
+      const lineColor = document.querySelector("#lineColor");
+      const lineWidth = document.querySelector("#lineWidth");
+      const lineJoin = document.querySelector("#lineJoin");
+      const lineCap = document.querySelector("#lineCap");
+      const rainbowColor = document.querySelector("#rainbowColor");
+      const resetCanvas = document.querySelector("#resetCanvas");
+
+      canvas.width = window.innerWidth - 20;
       canvas.height = window.innerHeight;
 
       const ctx = canvas.getContext("2d");
 
       ctx.strokeStyle = "#BADA55";
-      ctx.lineWidth = 5;
+      ctx.lineWidth = 10;
       ctx.lineJoin = "round";
       ctx.lineCap = "round";
 
@@ -24,6 +92,33 @@
       let isDrawing = false;
       let hue = 0;
       let direction = true;
+      let useRainbow = false;
+
+      resetCanvas.addEventListener("click", () =>
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+      );
+
+      lineColor.addEventListener(
+        "change",
+        (e) => (ctx.strokeStyle = e.target.value)
+      );
+
+      lineWidth.addEventListener(
+        "change",
+        (e) => (ctx.lineWidth = e.target.value)
+      );
+
+      lineJoin.addEventListener(
+        "change",
+        (e) => (ctx.lineJoin = e.target.value)
+      );
+
+      lineCap.addEventListener("change", (e) => (ctx.lineCap = e.target.value));
+
+      rainbowColor.addEventListener("change", (e) => {
+        useRainbow = !useRainbow;
+        lineColor.disabled = !lineColor.disabled;
+      });
 
       document.addEventListener("mousedown", (e) => {
         isDrawing = true;
@@ -38,12 +133,18 @@
         isDrawing = false;
       });
 
-      document.addEventListener("mousemove", draw);
+      canvas.addEventListener("mouseout", (e) => {
+        isDrawing = false;
+      });
+
+      canvas.addEventListener("mousemove", draw);
 
       function draw(e) {
         if (!isDrawing) return;
 
-        ctx.strokeStyle = `hsl(${hue},100%,50%)`;
+        ctx.strokeStyle = useRainbow
+          ? `hsl(${hue++},100%,50%)`
+          : ctx.strokeStyle;
 
         ctx.beginPath();
         ctx.moveTo(lastX, lastY);
@@ -52,17 +153,17 @@
 
         [lastX, lastY] = [e.offsetX, e.offsetY];
 
-        hue += 1;
+        // hue += 1;
 
-        if (ctx.lineWidth >= 50 || ctx.lineWidth <= 5) {
-          direction = !direction;
-        }
+        // if (ctx.lineWidth >= 50 || ctx.lineWidth <= 5) {
+        //   direction = !direction;
+        // }
 
-        if (direction) {
-          ctx.lineWidth += 5;
-        } else {
-          ctx.lineWidth -= 5;
-        }
+        // if (direction) {
+        //   ctx.lineWidth += 5;
+        // } else {
+        //   ctx.lineWidth -= 5;
+        // }
       }
     </script>
     <style>
