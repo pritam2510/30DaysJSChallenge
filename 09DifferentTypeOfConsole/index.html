@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Console Tricks!</title>
+    <link rel="icon" href="https://fav.farm/✅" />
+  </head>
+  <body>
+    <h1>CHECK THE CONSOLE TAB OF THE BROWSER DEV</h1>
+    <br />
+    <br />
+    <hr />
+    <br />
+    <br />
+    <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+    <script>
+      const dogs = [
+        { name: "Snickers", age: 2 },
+        { name: "hugo", age: 8, weight: '10kg' },
+      ];
+
+      function makeGreen() {
+        const p = document.querySelector("p");
+        p.style.color = "#BADA55";
+        p.style.fontSize = "50px";
+      }
+
+      // clearing
+      console.clear();
+      console.groupCollapsed("clear()");
+      console.log("The first one is for clearing the console.");
+      console.log(
+        "The syntax is console.clear(). Above is a example of the same"
+      );
+      console.log("console.clear()");
+      console.groupEnd("clear()");
+
+      // Regular
+      console.groupCollapsed("Regular log()");
+      console.log(
+        "The next is for regular the log(). This is to display any data type onto the console as string"
+      );
+      console.log(
+        "The syntax is console.log(). Below is a example of the same"
+      );
+      console.log('console.log("hello")');
+      console.log("hello");
+      console.log("log() can also display multiple data separated by ','");
+      console.log('console.log("hello", "hi", "hey", "and finally")');
+      console.log("hello, hi, hey, and finally");
+      console.groupEnd("Regular log()");
+
+      // Interpolated
+      console.groupCollapsed("Interpolated log()");
+      console.log(
+        "The next is for interpolated the log(). This is to display any string in which data is interpolated."
+      );
+      console.log(
+        "The syntax is console.log('original string with %s followed by the data type of the interpolated value', 'value to insert'). Below is a example of the same"
+      );
+      console.log('console.log("Hello I am a %s string!", "💩");');
+      console.log("Hello I am a %s string!", "💩");
+      console.groupEnd("Interpolated log()");
+
+      // Styled
+      console.groupCollapsed("Styled log()");
+      console.log(
+        "The next is for styled the log(). This is to display any string in which data is styled using the css styles. We need to %c in front of the text to be styled. the 2nd argument is the css styling for the string"
+      );
+      console.log(
+        "console.log('%c I am some great text', 'font-size:50px; background:red; text-shadow: 10px 10px 0 blue')"
+      );
+      console.log(
+        "%c I am some great text",
+        "font-size:50px; background:red; text-shadow: 10px 10px 0 blue"
+      );
+      console.groupEnd("Styled log()");
+
+      // warning!
+      console.groupCollapsed("warn()");
+      console.log(
+        "The next is warn(). It is to print a warning message on the console"
+      );
+      console.log(`console.warn("OH NOOO");`);
+      console.warn("OH NOOO");
+      console.groupEnd("warn()");
+
+      // Error :
+      console.groupCollapsed("Error()");
+      console.log(
+        "The next is warn(). It is to print an Error message on the console"
+      );
+      console.log(`console.error("Shit!");`);
+      console.error("Shit!");
+      console.groupEnd("Error()");
+
+      // Info
+      console.groupCollapsed("Info()");
+      console.log(
+        "The next is warn(). It is to print an Info message on the console"
+      );
+      console.log(`console.info("Crocodiles eat 3-4 people per year");`);
+      console.info("Crocodiles eat 3-4 people per year");
+      console.groupEnd("Info()");
+
+      // Testing
+      console.groupCollapsed("assert()");
+      console.log(
+        "The next is assert(). It is a message on the console whenever the test is failed. The first argument is the thing to test which should be a boolean. The second argument is the message to be displayed when the test fails. If the test succeeds then no message is displayed"
+      );
+      console.log(`console.assert(true, "Oh no!");`);
+      console.log(
+        `The above will not fail and therefore the message will be displayed. But the next one will be displayed`
+      );
+      console.log(`console.assert(false, "Oh no!");`);
+      console.assert(false, "Oh no!");
+      console.groupEnd("assert()");
+
+      const p = document.querySelector("p");
+      //   console.assert(p.classList.contains("ouch"), "That is wrong!");
+
+      // Viewing DOM Elements
+      console.groupCollapsed("dir()");
+      console.log(
+        "The next is dir(). So the dir displayes all teh properties of an object that is passed to the method. This also includes the properties that are inherited. log() shows the object but we require to expand the results in the console to view the properties."
+      );
+      console.log(
+        " Here we have an <p> tag that we have stored in a variable and pass it to both log() and dir() to view the differences."
+      );
+      console.log(`console.log(p);`);
+      console.log(p);
+      console.log(`console.dir(p);`);
+      console.dir(p);
+      console.groupEnd("dir()");
+
+      //Table
+      console.groupCollapsed("table()");
+      console.log(
+        "The next is table(). So the table displayes all the values of an array in an tabular format along with the index. If the array as objects then each property of the object is displayed in separate columns in the table and the values are then displayed in the console."
+      );
+      console.table(dogs);
+      console.groupEnd("table()");
+
+      // Grouping together
+      console.group("Grouping together console.log() results");
+      console.log(
+        "The next is group(). It is used to group together the console.log() results.  group() creates a new group in the console which can be collapsed and reopened as when required. groupCollapsed() works same as group() except that it is always collapsed at the begining. groupended() is used to to close a group that is created. group() or groupCollapsed() and groupended() is based a parameter that acts as a key for the group identification and therefore must be same at creation and at closing "
+      );
+      console.log("groups cant be nested as we can see Below");
+      dogs.forEach((dog) => {
+        console.groupCollapsed(`${dog.name}`);
+        console.log(`This is ${dog.name}`);
+        console.log(`${dog.name} is ${dog.age} years old`);
+        console.log(`${dog.name} is ${dog.age * 7} dog years old`);
+        console.groupEnd(`${dog.name}`);
+      });
+      console.groupEnd("Grouping together console.log() results");
+
+      // counting
+      console.groupCollapsed("count()");
+      console.log(
+        "The next is count(). It is used to count the number of times something is logged in the console. The argument is the thing to count"
+      );
+      console.count("Wes");
+      console.count("Wes");
+      console.count("Steve");
+      console.count("Steve");
+      console.count("Wes");
+      console.count("Steve");
+      console.count("Wes");
+      console.count("Steve");
+      console.count("Steve");
+      console.count("Steve");
+      console.count("Steve");
+      console.count("Steve");
+      console.groupEnd("count()");
+
+      // timing
+      console.groupCollapsed("time()");
+      console.log(
+        "The next is time(). It is used to measure how long something takes to execute. The argument acts as a key to determine a specific time() call. The timeEnd function is called to stop the timer and it must be called with the same argument as the previous. And this will display the time taken to complete"
+      );
+      console.time("fetching data");
+      fetch("https://api.github.com/users/wesbos")
+        .then((data) => data.json())
+        .then((data) => {
+          console.timeEnd("fetching data");
+          console.log(data);
+        });
+      console.groupEnd("time()");
+    </script>
+  </body>
+</html>
