@@ -7,6 +7,7 @@ const playButton = player.querySelector(".toggle");
 const skipButtons = player.querySelectorAll("[data-skip]");
 const ranges = player.querySelectorAll(".player__slider");
 const fullScreen = player.querySelector(`#btnFullScreen`);
+const inputNode = document.querySelector('input[type="file"]');
 
 /* List of all the variables that we require */
 let isMouseDown = false;
@@ -47,15 +48,35 @@ function scrub(e) {
 }
 
 function handleFullScreenClick() {
-  let iconStyle = isFullScreen ? "fa fa-expand" : "fa fa-compress";
-  fullScreen.innerHTML = `<i class="${iconStyle}" style="color: #ffffff"></i>`;
   if (!document.fullscreenElement) {
+    isFullScreen = true;
     player?.requestFullscreen();
   } else {
+    isFullScreen = false;
     document.exitFullscreen();
   }
+}
+
+function handleFullScreenIcon() {
+  let iconStyle = !isFullScreen ? "fa fa-expand" : "fa fa-compress";
+  fullScreen.innerHTML = `<i class="${iconStyle}" style="color: #ffffff"></i>`;
   isFullScreen =!isFullScreen;
 }
+
+function playSelectedFile(event) {
+    let file = this.files[0]
+    let type = file.type
+    let canPlay = video.canPlayType(type)
+    if (canPlay === '') canPlay = 'no'
+    let message = 'Can play type "' + type + '": ' + canPlay;
+    console.log(message);
+    let isError = canPlay === 'no'
+    if (isError) {
+      return
+    }
+    let fileURL = URL.createObjectURL(file)
+    video.src = fileURL
+  }
 
 /* List of all the event listener that we require */
 playButton.addEventListener("click", togglePlay);
@@ -80,3 +101,7 @@ progress.addEventListener("mousedown", (e) => (isMouseDown = true));
 progress.addEventListener("mouseup", (e) => (isMouseDown = false));
 
 fullScreen.addEventListener("click", handleFullScreenClick);
+
+player.addEventListener("fullscreenchange", handleFullScreenIcon);
+
+inputNode.addEventListener('change', playSelectedFile);

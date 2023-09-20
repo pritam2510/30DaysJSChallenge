@@ -12,6 +12,10 @@
   </head>
   <body>
     <div class="player">
+      <label class="custom-file-upload">
+        <input type="file" accept="video/*" />
+        <i class="fa fa-cloud-upload"></i> Custom Upload
+      </label>
       <video class="player__video viewer" src="652333414.mp4"></video>
 
       <div class="player__controls">
@@ -43,7 +47,7 @@
           <i class="fa fa-backward" style="color: #ffffff"></i> 10s
         </button>
         <button data-skip="10" class="player__button">
-          10s <i class="fa fa-forward" style="color: #ffffff"></i> 
+          10s <i class="fa fa-forward" style="color: #ffffff"></i>
         </button>
         <button id="btnFullScreen" class="player__button">
           <i class="fa fa-expand" style="color: #ffffff"></i>
