@@ -178,14 +178,16 @@ input[type="file"] {
   border-radius: 20px;
 }
 
-.test {
+.addNewFile {
   transform: translateY(100%) translateY(-100px);
   top: 0;
   transition: all 0.3s;
   position: absolute;
   margin: 10px;
+  float: right;
+  right: 0;
 }
 
-.player:hover .test {
+.player:hover .addNewFile {
   transform: translateY(0);
 }
