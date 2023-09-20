@@ -106,7 +106,7 @@ body {
   width: 50%;
   background: #ffc600;
   flex: 0;
-  flex-basis: 0%;
+  flex-basis: .75%;
 }
 
 /* unholy css to style input type="range" */
@@ -170,11 +170,22 @@ input[type="file"] {
   display: none;
 }
 .custom-file-upload {
-  color: rgba(0, 0, 0, 0.2);
+  color: rgb(255, 255, 255);
   display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
-  font-size: medium;
-  background: linear-gradient(135deg, #7c1599 0%, #921099 48%, #7e4ae8 100%);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  font-size: large;
+  border-radius: 20px;
+}
+
+.test {
+  transform: translateY(100%) translateY(-100px);
+  top: 0;
+  transition: all 0.3s;
+  position: absolute;
+  margin: 10px;
+}
+
+.player:hover .test {
+  transform: translateY(0);
 }
