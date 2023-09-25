@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SSSHHH....</title>
+    <script type="text/javascript" src="./cornify.js"></script>
+    <link rel="icon" href="ssshhh.png" />
+  </head>
+  <style>
+    html {
+      background: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet); 
+    }
+  </style>
+  <body>
+    <script>
+      const pressed = [];
+      const secretCode = "pritam";
+
+      window.addEventListener("keyup", (e) => {
+        console.log(e.key);
+        pressed.push(e.key);
+        pressed.splice(
+          -secretCode.length - 1,
+          pressed.length - secretCode.length
+        );
+        if (pressed.join("").includes(secretCode)) {
+          console.log("DING DING!");
+          cornify_add();
+        }
+        console.log(pressed);
+      });
+    </script>
+  </body>
+</html>
